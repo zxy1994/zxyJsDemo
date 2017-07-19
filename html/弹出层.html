@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/prototype.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<input type="button" id="button" value="测试弹出层" />
+        <script type="text/javascript">
+        	/* 页面都引入了 prototype.js这个类库，主要是测试$冲突后插件能否运行*/
+        	var jq = jQuery.noConflict();
+        	jq(function(){
+        		//弹出一个页面层
+				jq('#button').on('click', function(){
+				  layer.open({
+				  type: 1,
+				  area: ['600px', '360px'],
+				  shadeClose: true, //点击遮罩关闭
+				  content: '\<\div style="padding:20px;">自定义内容\<\/div>'
+				  });
+				});
+        	})
+        </script>
+	</body>
+</html>

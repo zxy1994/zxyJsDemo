@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>下拉框内容过滤的js实现</title>
+		<style type="text/css">
+			.select-filter {
+			    margin: 4px 4px;
+			    border:1px dashed #CCCCCC;
+			    background-color: #F0F0F0;
+			    font-size: 14px;
+			}
+			.input_init {
+			    color: gray;
+			    font-style: italic;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			
+			<!-- 下拉列表 -->
+			请选择城市：<select name="city"  style="width: 80px;" onchange="selectOnchange()" >
+				<option value="1">北京</option>
+				<option value="1">上海</option>
+				<option value="1">广州</option>
+				<option value="1">深圳</option>
+				<option value="1">杭州</option>
+				<option value="1">南京</option>
+				<option value="1">武汉</option>
+				<option value="1">成都</option>
+				<option value="1">长沙</option>
+				<option value="1">南昌</option>
+			</select>
+			<!-- 过滤 -->
+				<input  type="text" value="输入过滤" id ="filter" 
+					class="select-filter input_init" 
+					style="width: 80px ;" 
+					onclick="selectOnclick(this)" 
+					onblur="selectOnblur(this)" 
+					onmouseout="targetChangeFunction(this)" 
+					onkeyup="selectOnkeyup(this)" />
+		</div>
+		<script type="text/javascript">
+			
+			function selectOnchange(){
+				// alert("下拉内容改变了")
+				// targetChangeFunction(obj)
+			}
+				
+			<!-- 过滤下拉 -->
+			/** 输入过滤的4个事件 */
+			function selectOnclick(obj){
+				if(obj.value == "输入过滤") {
+					obj.value="";
+				}	
+			}
+			
+			function selectOnblur(obj){
+				if (obj.value.trim() == "") {
+					obj.value="输入过滤";
+				}
+			}
+			
+			function selectOnkeyup(obj){
+				// 获取过滤框的父级标签的第一个select子标签
+				var select = obj.parentNode.getElementsByTagName("select")[0];
+				// 获取过滤框的值，并全部转换成大写
+				var filterValue = obj.value.trim().toUpperCase();
+				// 将过滤框的值转换成小写
+				var filterValueToLowerCase = obj.value.trim().toLowerCase();
+				
+				// for循环上面获取的select标签的option
+				for (var i=0; i < select.options.length; i++) {
+					// 如果过滤框的值得大写形式和小写形式都不被option的值包含的话；把这个option隐藏
+					if (select.options[i].text.indexOf(filterValue) < 0 && select.options[i].text.indexOf(filterValueToLowerCase) < 0) {
+					    select.options[i].style.display = "none";
+					} else{
+						// 否则把option 显示
+						select.options[i].style.display = "block";
+					}				
+				}
+				
+				// for循环上面处理过后的option
+				for (var i=0; i < select.options.length; i++) {
+					if (select.options[i].style.display == "block") {
+						// 选中所有option的样式是显示的第一个option
+						select.options[i].selected="selected";
+						// 跳出循环
+						break;
+					} else {
+						// 这里要解决火狐浏览器的bug。防止当当输入过滤都不符合的时候，火狐的下拉框为空
+						if(i == select.options.length-1){
+							// 这里当不满足过滤条件时，让他默认选择所有下拉的第一个
+							select.options[0].style.display = "block";
+							select.options[0].selected="selected";
+						}
+					}
+				}
+				return;		// 结束
+			}
+			
+			/* 作用：主动触发change事件,这个事件根据业务场景来使用  */
+			function targetChangeFunction(obj){
+				
+				/* 这里用js来主动触发change事件  */
+				// 获取过滤框的父级标签的第一个select子标签
+				var select = obj.parentNode.getElementsByTagName("select")[0];
+				// 创建事件对象
+				var eventObj = document.createEvent('HTMLEvents');
+				// 初始化事件
+				eventObj.initEvent("change",true,true) ;
+				// 触发事件
+				select.dispatchEvent(eventObj);
+			}
+		</script>
+	</body>
+</html>

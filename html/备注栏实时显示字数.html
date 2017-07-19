@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta charset="UTF-8">
+		
+		<title>实时显示字数的备注框</title>
+		<script src="../js/prototype.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<table border="1" cellspacing="0"  cellpadding="20" style="border-collapse: collapse;"  >
+			<tr >
+				<th>标题</th>
+				<th>内容</th>
+			</tr>
+			<tr>
+				<td>备注</td>
+				<td>
+					<textarea id="remarkId"  name="remark" 
+						rows="9" cols="80" style="resize:none;border-radius:3px;"
+						 placeholder="在此处输入备注信息"></textarea> 
+					<br/>
+					<span id="remarkTip" style="color:#808080;visibility:hidden; font-size: 9px;" >&nbsp;</span>
+				</td>
+			</tr>
+		</table>
+	</body>
+	<script type="text/javascript">
+		/* 页面都引入了 prototype.js这个类库，主要是测试$冲突后插件能否运行*/
+		/*用jq代替JQuery中的$符号*/
+		var jq = jQuery.noConflict();
+		/* 监听textrea的输入事件 */
+		jq("#remarkId").on("input propertychange", function() {
+			var len = jq(this).val().length;
+			if(len > 240) {
+				var content = jq("#remarkId").val();
+				jq("#remarkId").val(content.substring(0, 240));
+			}
+			var num = 240 - len;
+			num = num < 0 ? 0 : num;
+			if(len > 0) {
+				jq("#remarkTip").css("visibility", "visible")
+					.text("你已输入" + jq(this).val().length + "个字，还可以输入" + num + "个字");
+			} else {
+				jq("#remarkTip").css("visibility", "hidden")
+					.text("&nbsp;");
+			}
+		});
+		jq(function() {
+			jq("#remarkId").val()
+		})
+	</script>
+</html>
