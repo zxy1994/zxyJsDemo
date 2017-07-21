@@ -21,13 +21,14 @@
 		
 		// 用于判断宽度该加多少
 		if(t.css("border-collapse")=="collapse"){
-			var borderWith = parseInt(t.css("border"));
+			var borderWith = parseInt(t.attr("border"));
 		}else{
 			var borderWith = 0;
 		}
 		// 设置表格悬浮标题单元格的宽度
 	    fixed_table.find("th").each(function (i) {
-	        $(this).width(t.find("th").eq(i).width()+borderWith);
+	    	var width = t.find("th").eq(i).css("width");
+	        $(this).width(parseInt(width)+borderWith+"px");
 	    });
 	
 	    $(window).bind("scroll", function () {
