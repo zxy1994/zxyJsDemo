@@ -43,4 +43,3 @@
 	    return t;
 	}
 }(jQuery));
-
