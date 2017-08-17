@@ -3,6 +3,7 @@
 	 * 表头悬浮插件
 	 * @author zxy
 	 * @date 2017-07-18 13:17:54
+	 * @param 背景颜色，非必填
 	 */
     $.fn.fixedTableHeader = function (bgColor) {
 		var isFirefox=(navigator.userAgent.toUpperCase().indexOf("FIREFOX") > 0) ? true:false;//是否是火狐浏览器

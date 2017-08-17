@@ -8,7 +8,11 @@
 </head> 
 
 <body> 
+	使用插件：
 	<input type="button" id="btn" value="免费获取验证码" onclick="settime(this)" /> 
+	<hr>
+	不使用插件：
+	<input type="button" id="btn" value="免费获取验证码" onclick="daojishi(10,this)" /> 
 	<hr>
 	<p>系统当前时间：<span id="time"></span> </p>
 </body> 
@@ -19,5 +23,19 @@
 	$(function(){
 		$("#time").runtime();
 	})
+	
+	// 自己写的倒计时，非插件版
+	function daojishi(seconds,obj){
+		if (seconds > 1){
+				seconds--;
+				$(obj).val(seconds+"秒后可重新获取 ").attr("disabled", true);//禁用按钮
+				// 定时1秒调用一次
+				setTimeout(function(){
+					daojishi(seconds,obj);
+				},1000);
+			}else{
+				$(obj).val("免费获取验证码").attr("disabled", false);//启用按钮
+			}
+	}
 </script> 
 </html>
