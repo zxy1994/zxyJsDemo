@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<title>表格表头悬浮Demo</title>
-		<script src="../js/prototype.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/jquery-fixed-table-header.js" type="text/javascript" charset="utf-8"></script>
 	</head>
@@ -75,7 +75,7 @@
         <script type="text/javascript">
         	var jq = jQuery.noConflict();
         	jq(function(){
-        		jq("#table1").fixedTableHeader();
+        		jq("#table1").fixedTableHeader("",20);
         	})
         </script>
 	</body>

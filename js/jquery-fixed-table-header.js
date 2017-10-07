@@ -3,16 +3,22 @@
 	 * 表头悬浮插件
 	 * @author zxy
 	 * @date 2017-07-18 13:17:54
-	 * @param 背景颜色，非必填
+	 * @param bgColor   用于定制表格表头的背景颜色，非必填,string类型，填空串也不影响结果;有时可能不起作用
+	 * @param topOffset 生成的表头距顶部的高度，非必填，number类型，填0也不影响结果
+	 * eg: $("#表格table的Id").fixedTableHeader("",0);
 	 */
-    $.fn.fixedTableHeader = function (bgColor) {
+    $.fn.fixedTableHeader = function (bgColor,topOffset) {
 		var isFirefox=(navigator.userAgent.toUpperCase().indexOf("FIREFOX") > 0) ? true:false;//是否是火狐浏览器
 	    var t = $(this);
-	    var tableOffset = t.offset().top;
+	    // 判断生成的表头距浏览器顶部的高度
+	    if(typeof(topOffset)=="undefined"|| topOffset <= 0){
+			topOffset = 0;
+		}
+	    var tableOffset = t.offset().top - topOffset;  // 这里需要减去距离顶部的那部分高度
 	    // 创建一个表格，设置样式
-	    var fixed_table = $('<table></table>').css({ 'display':'none', 'position':'fixed', 'top':'0px', 'background-color':'white' });
+	    var fixed_table = $('<table></table>').css({ 'display':'none', 'position':'fixed', 'top':topOffset, 'background-color':'white' });
 	   	 // 如果传递了背景颜色进来，那么就设置背景颜色
-	    if(bgColor){
+	    if(typeof(bgColor) != "undefined" && bgColor.trim() != ""){
 	    	fixed_table.css("background-color",bgColor);
 	    }
 	   	// 把表格的标题clone过来

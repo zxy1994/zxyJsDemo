@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>测试弹出子父窗口</title>
+	</head>
+	<body>
+	<script type="text/javascript">
+		window.onload=function(){
+			myWindow = window.open('zi.html', 'MyName', 'height=200, width=400, top=200, left=300, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no')
+			myWindow.focus()
+		}
+		function fu(a,b,c){
+			//alert(a)
+			document.getElementById("result").innerHTML="回传参数:a="+a+",b="+b+",c="+c;
+		}
+	</script>
+		<font color="red" id="result"></font>
+	</body>
+</html>
